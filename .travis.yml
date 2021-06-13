@@ -1,0 +1,30 @@
+# Config file for automatic testing at travis-ci.org
+
+language: python
+
+python:
+  - "3.9"
+  - "3.8"
+  - "3.7"
+  - "3.6"
+
+env:
+  - TOX_ENV=py39
+  - TOX_ENV=py38
+  - TOX_ENV=py37
+  - TOX_ENV=py36
+
+matrix:
+  fast_finish: true
+
+
+before_install:
+  - pip install poetry
+
+install:
+  - poetry install
+
+script: tox -e $TOX_ENV
+
+after_success:
+  - codecov -e TOX_ENV

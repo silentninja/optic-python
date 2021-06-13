@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "optic_django_core"
+version = "0.1.0"
+description = ""
+authors = ["Mukesh <mmukesh95@hotmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+optic = {path = "../../../sdk"}
+
+
+[tool.poetry.dev-dependencies]
+tox = "^3.23.1"
+codecov = "^2.1.11"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

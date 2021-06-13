@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "optic"
+version = "0.1.0"
+description = "Python SDK for Optic"
+authors = ["Mukesh <mmukesh95@hotmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6 || ^3.7 || ^3.8 || ^3.9"
+
+
+
+[tool.poetry.dev-dependencies]
+tox = "^3.23.1"
+codecov = "^2.1.11"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
