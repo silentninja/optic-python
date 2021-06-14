@@ -1,6 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.utils.deprecation import MiddlewareMixin
 
+from optic_django_middleware.manager import OpticManager
 
 
 class OpticMiddleware(MiddlewareMixin):
@@ -15,4 +16,6 @@ class OpticMiddleware(MiddlewareMixin):
         return None
 
     def process_response(self, request: HttpRequest, response: HttpResponse):
+        OpticManager.interaction_container.capture_interaction(request, response, self.cached_request_body)
+
         return response

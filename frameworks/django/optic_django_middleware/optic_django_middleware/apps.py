@@ -10,8 +10,8 @@ from optic.main import OpticConfig
 @dataclass
 class OpticDjangoConfig(OpticConfig):
     ENABLE = True
-    log_path = "./optic.log"
-
+    LOG_PATH = "./optic.log"
+    INTERACTION_CONTAINER = "optic_django_middleware.container.BasicInteractionContainer"
 
 
 class OpticDjangoAppConfig(AppConfig):
@@ -41,6 +41,3 @@ class OpticDjangoAppConfig(AppConfig):
         field_names = set(f.name for f in fields(OpticConfig))
         c = {k: cls.get_setting(k) for k in field_names}
         return OpticConfig(**c)
-
-
-

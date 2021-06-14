@@ -23,7 +23,10 @@ tempdir = mkdtemp('optic_tests')
 
 OPTIC = {
     'ENABLE': True,
-    'LOG_PATH': os.path.join(tempdir, 'optic-log.json'),
+    'LOG_PATH': os.path.join(tempdir, 'optic.log'),
+    'LOG': True,
+    'CONSOLE': False,
+    'LOCAL': False
 }
 
 ROOT_URLCONF = 'tests.urls'
