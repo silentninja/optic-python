@@ -2,7 +2,7 @@ from django.conf import settings
 from django.test import TestCase, override_settings
 
 from optic_django_middleware.apps import OpticDjangoAppConfig
-from optic_django_middleware.manager import OpticManager
+from optic_django_middleware.manager import BasicOpticManager
 
 
 class TestAppConfig(TestCase):
@@ -19,8 +19,8 @@ class TestAppConfig(TestCase):
         self.assertTrue(OpticDjangoAppConfig.enabled())
 
     def test_add_middleware_twice(self):
-        OpticManager.add_middleware()
-        OpticManager.add_middleware()
+        BasicOpticManager.add_middleware()
+        BasicOpticManager.add_middleware()
 
         middlewares = settings.MIDDLEWARE
         self.assertEqual(len(middlewares), 1)
@@ -30,16 +30,16 @@ class TestAppConfig(TestCase):
 
     def test_list_middlewares_types(self):
         with override_settings(MIDDLEWARE=[]):
-            OpticManager.add_middleware()
+            BasicOpticManager.add_middleware()
             self.assertEqual(settings.MIDDLEWARE, [
                              'optic_django_middleware.middleware.OpticMiddleware'
                              ])
         with override_settings(MIDDLEWARE=()):
-            OpticManager.add_middleware()
+            BasicOpticManager.add_middleware()
             self.assertEqual(
                 settings.MIDDLEWARE,
                 ('optic_django_middleware.middleware.OpticMiddleware',)
             )
         with override_settings(MIDDLEWARE='some_nasty_thing'):
             with self.assertRaises(Exception):
-                OpticManager.add_middleware()
+                BasicOpticManager.add_middleware()

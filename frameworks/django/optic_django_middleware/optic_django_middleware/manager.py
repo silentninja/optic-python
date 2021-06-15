@@ -1,18 +1,16 @@
 # -*- coding: utf-8
-import importlib
 import inspect
 import threading
 
 from django.conf import settings
 from django.utils.module_loading import import_string
 
-from optic_django_middleware.apps import OpticDjangoAppConfig
 from optic_django_middleware.container import BasicInteractionContainer
 
 local = threading.local()
 
 
-class OpticManager:
+class BasicOpticManager:
     interaction_container: BasicInteractionContainer = None
 
     @classmethod
@@ -59,13 +57,16 @@ class OpticManager:
             setattr(settings, setting_name, new_middleware_setting)
 
     @classmethod
+    def capture_interaction(cls, a, b, c):
+        cls.interaction_container.capture_interaction(a,b,c)
+
+    @classmethod
     def set_up(cls):
         cls.add_middleware()
         cls.set_up_interaction_container()
 
     @classmethod
     def set_up_interaction_container(cls):
-        module_name, class_name = OpticDjangoAppConfig.get_setting("INTERACTION_CONTAINER").rsplit(".", 1)
-        InteractionContainer = getattr(importlib.import_module(module_name), class_name)
-        cls.interaction_container = InteractionContainer()
+        cls.interaction_container = BasicInteractionContainer()
         cls.interaction_container.set_up()
+
