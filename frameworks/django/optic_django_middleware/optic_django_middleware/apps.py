@@ -1,4 +1,5 @@
 # -*- coding: utf-8
+import importlib
 from dataclasses import dataclass, fields
 
 from django.apps import AppConfig
@@ -10,8 +11,8 @@ from optic.main import OpticConfig
 @dataclass
 class OpticDjangoConfig(OpticConfig):
     ENABLE = True
-    log_path = "./optic.log"
-
+    LOG_PATH = "./optic.log"
+    INTERACTION_MANAGER = "optic_django_middleware.manager.BasicOpticManager"
 
 
 class OpticDjangoAppConfig(AppConfig):
@@ -33,14 +34,15 @@ class OpticDjangoAppConfig(AppConfig):
 
     def ready(self):
         if self.enabled():
-            from .manager import OpticManager
-            OpticManager.set_up()
 
+            OpticDjangoAppConfig.get_manager().set_up()
+    @classmethod
+    def get_manager(cls):
+        module_name, class_name = OpticDjangoAppConfig.get_setting("INTERACTION_MANAGER").rsplit(".", 1)
+        InteractionManager = getattr(importlib.import_module(module_name), class_name)
+        return InteractionManager
     @classmethod
     def get_optic_settings(cls):
         field_names = set(f.name for f in fields(OpticConfig))
         c = {k: cls.get_setting(k) for k in field_names}
         return OpticConfig(**c)
-
-
-

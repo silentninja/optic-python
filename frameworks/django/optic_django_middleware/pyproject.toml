@@ -8,6 +8,7 @@ authors = ["Mukesh <mmukesh95@hotmail.com>"]
 python = "^3.9"
 optic = {path = "../../../sdk"}
 Django = "^3.2.4"
+kubi-ecs-logger = "^0.1.0"
 
 
 [tool.poetry.dev-dependencies]
