@@ -57,8 +57,8 @@ class BasicOpticManager:
             setattr(settings, setting_name, new_middleware_setting)
 
     @classmethod
-    def capture_interaction(cls, a, b, c):
-        cls.interaction_container.capture_interaction(a,b,c)
+    def capture_interaction(cls, request, response, cached_request_body):
+        cls.interaction_container.capture_interaction(request, response, cached_request_body)
 
     @classmethod
     def set_up(cls):

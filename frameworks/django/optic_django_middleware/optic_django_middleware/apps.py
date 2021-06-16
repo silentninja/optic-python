@@ -1,6 +1,5 @@
 # -*- coding: utf-8
 import importlib
-import timeit
 from dataclasses import dataclass, fields
 
 from django.apps import AppConfig
