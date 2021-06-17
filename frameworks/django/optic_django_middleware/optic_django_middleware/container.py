@@ -1,15 +1,10 @@
-import platform
-from urllib.parse import urlparse
-
 from django.http import HttpRequest, HttpResponse
 
-from optic.main import Optic, OpticConfig
-from .apps import OpticDjangoAppConfig
+from .manager import BasicOpticManager
 from .serializers import OpticEcsLogger
 
 
 class BasicInteractionContainer:
-    optic = None
 
     def __init__(self) -> None:
         super().__init__()
@@ -19,8 +14,4 @@ class BasicInteractionContainer:
         self.on_interaction_captured(serialized_interaction)
 
     def on_interaction_captured(self, serialized_interaction):
-        self.optic.send_interaction(serialized_interaction)
-
-    @classmethod
-    def set_up(cls):
-        cls.optic = Optic(OpticDjangoAppConfig.get_optic_settings())
+        BasicOpticManager.optic.send_interaction(serialized_interaction)
