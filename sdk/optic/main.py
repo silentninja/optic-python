@@ -37,12 +37,12 @@ class Optic:
         except CalledProcessError as e:
             return False
 
-    def send_to_file(self, interaction_object: dict) -> None:
+    def send_to_file(self, interactions: list) -> None:
         with open("./optic.log", "w+") as f:
-            f.write(json.dumps(interaction_object) + "\n")
+            f.write(json.dumps(interactions) + "\n")
 
-    def send_to_console(self, interaction_object: dict) -> None:
-        print(json.dumps(interaction_object) + "\n")
+    def send_to_console(self, interactions: list) -> None:
+        print(json.dumps(interactions) + "\n")
 
     def call_optic(self, parameters: str):
         result = subprocess.run([Optic.cli_command(self.config.DEV) + parameters], shell=True,
@@ -58,15 +58,15 @@ class Optic:
                 return matches['url']
         return None
 
-    def send_to_local_cli(self, interaction_object):
+    def send_to_local_cli(self, interactions):
         ingest_url = self.get_ingest_url()
-        r = requests.post(ingest_url, data=interaction_object)
+        r = requests.post(ingest_url, data=interactions)
         return r.status_code
 
-    def send_interaction(self, interaction):
+    def send_interactions(self, interactions: list):
         if self.config.CONSOLE:
-            self.send_to_console(interaction)
+            self.send_to_console(interactions)
         if self.config.LOG:
-            self.send_to_file(interaction)
+            self.send_to_file(interactions)
         if self.config.LOCAL:
-            self.send_to_local_cli(interaction)
+            self.send_to_local_cli(interactions)

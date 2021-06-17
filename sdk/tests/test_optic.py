@@ -52,10 +52,10 @@ class OpticTestCase(unittest.TestCase):
     def test_send_interaction_object_to_console(self):
         config = OpticConfig(**self.config_options)
         optic = Optic(config)
-        interaction_object = {}
+        interactions = [{}]
         with patch('sys.stdout', new=io.StringIO()) as fake_out:
-            optic.send_to_console(interaction_object)
-            self.assertEqual(fake_out.getvalue().strip("\n"), json.dumps(interaction_object))
+            optic.send_to_console(interactions)
+            self.assertEqual(fake_out.getvalue().strip("\n"), json.dumps(interactions))
 
     def test_send_interaction_object_to_file(self):
         config = OpticConfig(**self.config_options)
@@ -64,7 +64,7 @@ class OpticTestCase(unittest.TestCase):
         self.assertFalse(path.exists(
                 './optic.log'
         ))
-        optic.send_to_file(interaction_object)
+        optic.send_to_file([interaction_object])
         self.assertTrue(path.exists(
                 './optic.log'
         ))
@@ -80,6 +80,7 @@ class OpticTestCase(unittest.TestCase):
         optic = Optic(config)
         interaction_object = {}
         self.assertEqual(optic.send_to_local_cli(interaction_object), 204)
+
 
 if __name__ == '__main__':
     unittest.main()
