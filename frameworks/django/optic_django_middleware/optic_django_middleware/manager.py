@@ -4,14 +4,18 @@ import threading
 
 from django.conf import settings
 from django.utils.module_loading import import_string
-
-from optic_django_middleware.container import BasicInteractionContainer
+from optic.main import Optic
+from optic_django_middleware.apps import OpticDjangoAppConfig
 
 local = threading.local()
 
 
 class BasicOpticManager:
-    interaction_container: BasicInteractionContainer = None
+    optic = None
+
+    @classmethod
+    def get_interaction_container(cls):
+        return getattr(cls, "interaction_container", None)
 
     @classmethod
     def is_middleware_class(cls, middleware_path):
@@ -58,15 +62,23 @@ class BasicOpticManager:
 
     @classmethod
     def capture_interaction(cls, request, response, cached_request_body):
-        cls.interaction_container.capture_interaction(request, response, cached_request_body)
+        cls.get_interaction_container().capture_interaction(request, response, cached_request_body)
 
     @classmethod
     def set_up(cls):
         cls.add_middleware()
+        cls.set_up_optic()
+        cls.set_up_additional()
+
+    @classmethod
+    def set_up_additional(cls):
         cls.set_up_interaction_container()
 
     @classmethod
-    def set_up_interaction_container(cls):
-        cls.interaction_container = BasicInteractionContainer()
-        cls.interaction_container.set_up()
+    def set_up_optic(cls):
+        cls.optic = Optic(OpticDjangoAppConfig.get_optic_settings())
 
+    @classmethod
+    def set_up_interaction_container(cls):
+        from optic_django_middleware.container import BasicInteractionContainer
+        cls.interaction_container = BasicInteractionContainer()
