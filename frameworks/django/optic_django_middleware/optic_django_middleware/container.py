@@ -14,4 +14,4 @@ class BasicInteractionContainer:
         self.on_interaction_captured(serialized_interaction)
 
     def on_interaction_captured(self, serialized_interaction):
-        BasicOpticManager.optic.send_interaction(serialized_interaction)
+        BasicOpticManager.optic.send_interactions([serialized_interaction])

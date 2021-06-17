@@ -31,7 +31,7 @@ class TestMiddleWare(TestCase):
                 self.client.get('/url-1')
                 with open("./optic.log", "r+") as f:
                     log = json.load(f)
-                    self.assertEqual(log['url']['path'], "/url-1")
+                    self.assertEqual(log[0]['url']['path'], "/url-1")
         self.test_runner.run_suite(TestLoader().loadTestsFromTestCase(
             testCaseClass=Test))
 
