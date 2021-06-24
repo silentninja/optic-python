@@ -5,13 +5,12 @@ from dataclasses import dataclass, fields
 from django.apps import AppConfig
 from django.conf import settings
 
-from optic.main import OpticConfig
+from optic import OpticConfig
 
 
 @dataclass
 class OpticDjangoConfig(OpticConfig):
     ENABLE = True
-    LOG_PATH = "./optic.log"
     INTERACTION_MANAGER = "optic_django_middleware.manager.BasicOpticManager"
 
 
@@ -31,6 +30,9 @@ class OpticDjangoAppConfig(AppConfig):
     @classmethod
     def enabled(cls):
         return cls.get_setting('ENABLE')
+    @classmethod
+    def log_path(cls):
+        return cls.get_setting('LOG_PATH')
 
     def ready(self):
         if self.enabled():

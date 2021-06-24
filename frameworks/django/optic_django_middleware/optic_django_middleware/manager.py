@@ -4,7 +4,7 @@ import threading
 
 from django.conf import settings
 from django.utils.module_loading import import_string
-from optic.main import Optic
+from optic import Optic
 from optic_django_middleware.apps import OpticDjangoAppConfig
 
 local = threading.local()

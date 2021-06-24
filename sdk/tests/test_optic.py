@@ -5,7 +5,8 @@ from os import path
 import unittest
 from unittest.mock import patch
 
-from optic.main import OpticConfig, Optic
+from ..optic import OpticConfig, Optic
+from .fixtures import get_fixture
 
 
 class OpticInitializationTestCase(unittest.TestCase):
@@ -28,31 +29,10 @@ class OpticTestCase(unittest.TestCase):
         except FileNotFoundError:
             pass
 
-    def test_optic_version_on_production(self):
-        config = OpticConfig(**self.config_options)
-        optic = Optic(config)
-        self.assertEqual(optic.cli_command(), 'api')
-
-    def test_optic_version_on_development(self):
-        config = OpticConfig(**self.config_options)
-        optic = Optic(config)
-        self.assertEqual(optic.cli_command(dev=True), 'apidev')
-
-    def test_optic_cli_dev_installation_status_verification(self):
-        config = OpticConfig(**self.config_options)
-        optic = Optic(config)
-        self.assertEqual(optic.check_optic_command(), True)
-
-    def test_optic_cli_production_installation_status_verification(self):
-        self.config_options['DEV'] = False
-        config = OpticConfig(**self.config_options)
-        optic = Optic(config)
-        self.assertEqual(optic.check_optic_command(), True)
-
     def test_send_interaction_object_to_console(self):
         config = OpticConfig(**self.config_options)
         optic = Optic(config)
-        interactions = [{}]
+        interactions = get_fixture("1.log")
         with patch('sys.stdout', new=io.StringIO()) as fake_out:
             optic.send_to_console(interactions)
             self.assertEqual(fake_out.getvalue().strip("\n"), json.dumps(interactions))
@@ -60,7 +40,7 @@ class OpticTestCase(unittest.TestCase):
     def test_send_interaction_object_to_file(self):
         config = OpticConfig(**self.config_options)
         optic = Optic(config)
-        interaction_object = {}
+        interaction_object = get_fixture("1.log")
         self.assertFalse(path.exists(
                 './optic.log'
         ))
@@ -73,14 +53,12 @@ class OpticTestCase(unittest.TestCase):
     def test_ingest_url(self):
         config = OpticConfig(**self.config_options)
         optic = Optic(config)
+        self.assertIsNotNone(optic.get_ingest_url())
         self.assertIn("http://", optic.get_ingest_url())
 
     def test_send_interaction_to_optic(self):
         config = OpticConfig(**self.config_options)
         optic = Optic(config)
-        interaction_object = {}
-        self.assertEqual(optic.send_to_local_cli(interaction_object), 204)
+        interaction_object = get_fixture("1.log")
+        self.assertEqual(optic.send_to_local_cli(interaction_object), 201)
 
-
-if __name__ == '__main__':
-    unittest.main()
