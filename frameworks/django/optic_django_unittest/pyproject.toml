@@ -10,6 +10,7 @@ python = "^3.9"
 [tool.poetry.dev-dependencies]
 tox = "^3.23.1"
 codecov = "^2.1.11"
+freezegun = "^1.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
