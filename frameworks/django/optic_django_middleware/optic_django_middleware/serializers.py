@@ -21,21 +21,22 @@ class OpticEcsLogger(Logger):
         user_agent_string = getattr(
                 request.headers, 'user_agent', None,
         )
-
         if not user_agent_string and 'HTTP_USER_AGENT' in request.META:
             user_agent_string = request.META['HTTP_USER_AGENT']
-
-        l = self.host(architecture=platform.machine()).url(
+        l = self.url(
+                full=parsed_url.geturl(),
                 path=parsed_url.path,
                 domain=parsed_url.hostname,
                 port=parsed_url.port,
                 query=parsed_url.query
         ).http_response(
                 status_code=response.status_code,
-                body_content=response.content
+                body_content=response.content,
+                bytes=len(response.content)
         ).http_request(
                 body_content=request_body,
                 method=request.method,
+                bytes=len(request_body)
         ).user_agent(original=user_agent_string)
         request_headers = {k: v for k, v in request.headers.items()}
         response_headers = {k: v for k, v in response.headers.items()}
@@ -43,11 +44,12 @@ class OpticEcsLogger(Logger):
         obj = l.get_log_dict()
         obj['http'] = {}
         if 'httpresponse' in obj:
-            obj['http']['response'] = {'body': {'content': obj['httpresponse']['body_content']},
-                                       'status_code': obj['httpresponse']['status_code'],
-                                       'headers': response_headers}
+            obj['http']['response'] = {
+                'body': {'content': obj['httpresponse']['body_content'], 'bytes': obj['httpresponse']['bytes']},
+                'status_code': obj['httpresponse']['status_code'],
+                'headers': response_headers}
         if 'httprequest' in obj:
-            obj['http']['request'] = {'body': {'content': obj['httprequest']['body_content']},
+            obj['http']['request'] = {'body': {'content': obj['httprequest']['body_content'], 'bytes': obj['httprequest']['bytes']},
                                       'method': obj['httprequest']['method'], 'headers': request_headers}
         del obj['httpresponse']
         del obj['httprequest']

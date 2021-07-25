@@ -1,6 +1,6 @@
 from django.http import HttpRequest, HttpResponse
 
-from .manager import BasicOpticManager
+from .apps import OpticDjangoAppConfig
 from .serializers import OpticEcsLogger
 
 
@@ -14,4 +14,6 @@ class BasicInteractionContainer:
         self.on_interaction_captured(serialized_interaction)
 
     def on_interaction_captured(self, serialized_interaction):
-        BasicOpticManager.optic.send_interactions([serialized_interaction])
+        manager = OpticDjangoAppConfig.get_manager()
+        if manager:
+            manager.optic.send_interactions([serialized_interaction])

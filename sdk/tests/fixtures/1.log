@@ -1,0 +1,37 @@
+[{
+  "@timestamp": "2021-01-01T00:00:00",
+  "url": {
+    "domain": "testserver",
+    "path": "/url-1/",
+    "full": "http://testserver/url-1/",
+    "query": "",
+    "kind": "url"
+  },
+  "useragent": {
+    "original": "TestServer",
+    "kind": "useragent"
+  },
+  "http": {
+    "response": {
+      "body": {
+        "content": "view1",
+        "bytes": 5
+      },
+      "status_code": "200",
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8"
+      }
+    },
+    "request": {
+      "body": {
+        "content": "",
+        "bytes": 0
+      },
+      "method": "GET",
+      "headers": {
+        "Cookie": "",
+        "User-Agent": "TestServer"
+      }
+    }
+  }
+}]
