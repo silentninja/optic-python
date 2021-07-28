@@ -8,16 +8,11 @@ import unittest
 from unittest import TestLoader
 
 import django
-from django.conf import settings
-from django.test.utils import get_runner
 
 from tests.test_query_count_runner import TestRunnerTest
 
 
 def run_tests(*test_args):
-    if not test_args:
-        test_args = ['tests']
-
     os.environ['DJANGO_SETTINGS_MODULE'] = 'tests.settings'
     django.setup()
     test_runner = unittest.TextTestRunner()

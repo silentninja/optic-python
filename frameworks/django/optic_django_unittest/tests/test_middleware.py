@@ -1,10 +1,10 @@
 import json
 import os
-from unittest import  mock, TestLoader
+from unittest import mock, TestLoader
 from unittest.mock import MagicMock
+
 from django.test import TestCase
 from django.test.runner import DiscoverRunner
-from django.test import TestCase, override_settings
 
 from optic_django_middleware.apps import OpticDjangoAppConfig
 from optic_django_middleware.middleware import OpticMiddleware

@@ -5,8 +5,8 @@ description = ""
 authors = ["Mukesh <mmukesh95@hotmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-optic = {path = "../../../sdk"}
+python = "^3.7 || ^3.8 || ^3.9"
+optic = { path = "../../../sdk", develop = true }
 Django = "^3.2.4"
 kubi-ecs-logger = "^0.1.0"
 

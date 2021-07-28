@@ -1,11 +1,11 @@
 import io
 import json
 import os
-from os import path
 import unittest
+from os import path
 from unittest.mock import patch
 
-from ..optic import OpticConfig, Optic
+from optic import OpticConfig, Optic
 from .fixtures import get_fixture
 
 

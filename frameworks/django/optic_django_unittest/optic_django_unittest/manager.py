@@ -106,8 +106,7 @@ class HttpInteractionManager(BasicOpticManager):
 
     @classmethod
     def set_up_additional(cls):
-        cls.\
-            patch_test_case()
+        cls.patch_test_case()
         cls.patch_result()
         cls.patch_runner()
 
@@ -126,8 +125,9 @@ class HttpInteractionManager(BasicOpticManager):
     @classmethod
     def wrap_result_handler(cls, result_handler, success):
         """
-        Intercepts Result handlers hooks to update test containers about the status of the test result
+        Intercepts Result handler hooks to update test containers about the status of the test result
         """
+
         def wrapped(self, test: TestCase, *args, **kwargs):
             if not hasattr(cls,
                            'test_result_container') or cls.test_result_container is None or not OpticDjangoAppConfig.enabled():

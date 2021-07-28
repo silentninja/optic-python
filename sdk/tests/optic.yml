@@ -2,7 +2,7 @@ name: "Python Test"
 # Start your api with Optic by running 'api run <taskname>'
 tasks:
   start:
-    command: "python test_optic.py"
+    command: "python -m unittest discover -t .."
     inboundUrl: http://localhost:4001
   # Use the test command to test your API in your CI build pipeline
   test:

@@ -4,8 +4,9 @@ import threading
 
 from django.conf import settings
 from django.utils.module_loading import import_string
+
 from optic import Optic
-from optic_django_middleware.apps import OpticDjangoAppConfig
+from .apps import OpticDjangoAppConfig
 
 local = threading.local()
 
@@ -18,13 +19,13 @@ class BasicOpticManager:
         return getattr(cls, "interaction_container", None)
 
     @classmethod
-    def is_middleware_class(cls, middleware_path):
+    def is_middleware_class(cls, middleware_path) -> bool:
         from optic_django_middleware.middleware import OpticMiddleware
 
         try:
             middleware_cls = import_string(middleware_path)
         except ImportError:
-            return
+            return False
         return (
                 inspect.isclass(middleware_cls) and
                 issubclass(middleware_cls, OpticMiddleware)

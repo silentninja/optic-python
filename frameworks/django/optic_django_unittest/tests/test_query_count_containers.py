@@ -3,7 +3,7 @@ from freezegun import freeze_time
 
 from optic_django_middleware.serializers import OpticEcsLogger
 from optic_django_unittest.container import TestCaseInteractionContainer, TestResultInteractionContainer
-from tests.views import view1, view2
+from .views import view1, view2
 
 
 class MockRequest(object):

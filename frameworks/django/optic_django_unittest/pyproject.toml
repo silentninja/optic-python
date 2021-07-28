@@ -5,7 +5,8 @@ description = ""
 authors = ["Mukesh <mmukesh95@hotmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "~3.7 || ^3.8 || ^3.9"
+optic_django_middleware = { path = "../optic_django_middleware", develop = true }
 
 [tool.poetry.dev-dependencies]
 tox = "^3.23.1"

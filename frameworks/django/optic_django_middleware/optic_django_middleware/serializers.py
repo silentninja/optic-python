@@ -1,4 +1,4 @@
-import platform
+from typing import Dict
 from urllib.parse import urlparse
 
 from django.http import HttpRequest, HttpResponse
@@ -13,13 +13,13 @@ class OpticEcsLogger(Logger):
     def get_log_dict(self):
         return BaseSchema().dump(self._base)
 
-    def serialize_to_ecs(self, request: HttpRequest, response: HttpResponse, request_body: bytes) -> dict:
+    def serialize_to_ecs(self, request: HttpRequest, response: HttpResponse, request_body: bytes) -> Dict:
         parsed_url = urlparse(
-                request.build_absolute_uri()
+            request.build_absolute_uri()
         )
         # Todo Add support for optional django-user-agents package
         user_agent_string = getattr(
-                request.headers, 'user_agent', None,
+            request.headers, 'user_agent', None,
         )
         if not user_agent_string and 'HTTP_USER_AGENT' in request.META:
             user_agent_string = request.META['HTTP_USER_AGENT']
