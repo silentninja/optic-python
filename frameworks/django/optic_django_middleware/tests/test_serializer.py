@@ -1,14 +1,9 @@
-import json
-from pprint import pprint
-from unittest import TestCase
-
+from django.test import RequestFactory, TestCase
 from freezegun import freeze_time
 
-from fixtures import get_fixture
 from optic_django_middleware.serializers import OpticEcsLogger
-from django.test import RequestFactory, TestCase
-
 from tests.views import view1
+from .fixtures import get_fixture
 
 
 class HttpInteractionCountContainerTestCase(TestCase):
@@ -20,4 +15,4 @@ class HttpInteractionCountContainerTestCase(TestCase):
         response = view1(request)
         serialized_interaction = OpticEcsLogger().serialize_to_ecs(request, response, request.body)
         interaction = get_fixture("1.log")
-        self.assertDictEqual(interaction, serialized_interaction)
+        self.assertDictEqual(interaction[0], serialized_interaction)

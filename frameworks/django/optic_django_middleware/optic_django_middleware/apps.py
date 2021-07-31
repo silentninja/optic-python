@@ -28,23 +28,25 @@ class OpticDjangoAppConfig(AppConfig):
                 .get(setting_name, getattr(cls.default_settings, setting_name)))
 
     @classmethod
-    def enabled(cls):
+    def enabled(cls) -> bool:
         return cls.get_setting('ENABLE')
+
     @classmethod
-    def log_path(cls):
+    def log_path(cls) -> str:
         return cls.get_setting('LOG_PATH')
 
     def ready(self):
         if self.enabled():
-
             OpticDjangoAppConfig.get_manager().set_up()
+
     @classmethod
     def get_manager(cls):
         module_name, class_name = OpticDjangoAppConfig.get_setting("INTERACTION_MANAGER").rsplit(".", 1)
         InteractionManager = getattr(importlib.import_module(module_name), class_name)
         return InteractionManager
+
     @classmethod
-    def get_optic_settings(cls):
+    def get_optic_settings(cls) -> OpticConfig:
         field_names = set(f.name for f in fields(OpticConfig))
         c = {k: cls.get_setting(k) for k in field_names}
         return OpticConfig(**c)

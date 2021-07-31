@@ -1,26 +1,34 @@
 import io
 import json
 import os
-from os import path
 import unittest
+from os import path
 from unittest.mock import patch
 
-from ..optic import OpticConfig, Optic
+from optic import Optic, OpticConfig
+
 from .fixtures import get_fixture
 
 
 class OpticInitializationTestCase(unittest.TestCase):
     def test_optic_initialized_with_config(self):
-        config = OpticConfig(framework="Unittest", DEV=True, CONSOLE=True, LOCAL=False, LOG=True)
+        config = OpticConfig(
+            framework="Unittest", DEV=True, CONSOLE=True, LOCAL=False, LOG=True
+        )
         optic = Optic(config)
         self.assertEqual(optic.config, config)
 
 
 class OpticTestCase(unittest.TestCase):
-
     def setUp(self) -> None:
         super().setUp()
-        self.config_options = {'framework': "Unittest", 'DEV': True, 'CONSOLE': True, 'LOCAL': False, 'LOG': True}
+        self.config_options = {
+            "framework": "Unittest",
+            "DEV": True,
+            "CONSOLE": True,
+            "LOCAL": False,
+            "LOG": True,
+        }
 
     def tearDown(self) -> None:
         super().tearDown()
@@ -33,7 +41,7 @@ class OpticTestCase(unittest.TestCase):
         config = OpticConfig(**self.config_options)
         optic = Optic(config)
         interactions = get_fixture("1.log")
-        with patch('sys.stdout', new=io.StringIO()) as fake_out:
+        with patch("sys.stdout", new=io.StringIO()) as fake_out:
             optic.send_to_console(interactions)
             self.assertEqual(fake_out.getvalue().strip("\n"), json.dumps(interactions))
 
@@ -41,13 +49,9 @@ class OpticTestCase(unittest.TestCase):
         config = OpticConfig(**self.config_options)
         optic = Optic(config)
         interaction_object = get_fixture("1.log")
-        self.assertFalse(path.exists(
-                './optic.log'
-        ))
+        self.assertFalse(path.exists("./optic.log"))
         optic.send_to_file([interaction_object])
-        self.assertTrue(path.exists(
-                './optic.log'
-        ))
+        self.assertTrue(path.exists("./optic.log"))
 
     # Mock cli call if needed
     def test_ingest_url(self):
@@ -61,4 +65,3 @@ class OpticTestCase(unittest.TestCase):
         optic = Optic(config)
         interaction_object = get_fixture("1.log")
         self.assertEqual(optic.send_to_local_cli(interaction_object), 201)
-

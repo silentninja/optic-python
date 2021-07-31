@@ -1,10 +1,6 @@
 import json
 import os
-import re
-import subprocess
 from dataclasses import dataclass
-from subprocess import CalledProcessError
-from typing import Optional
 
 import requests
 
@@ -17,30 +13,30 @@ class OpticConfig:
     CONSOLE: bool = os.environ.get("OPTIC_CONSOLE", False)
     LOG: bool = os.environ.get("OPTIC_LOG", False)
     LOG_PATH: str = os.environ.get("OPTIC_LOG_PATH", "./optic.log")
-    UPLOAD_URL: str = os.environ.get("OPTIC_LOGGING_URL", "http://localhost:4001/")
+    UPLOAD_URL: str = os.environ.get("OPTIC_LOGGING_URL", "")
 
 
 class Optic:
-    def __init__(self, config: OpticConfig) -> None:
+    def __init__(self, config: OpticConfig):
         super().__init__()
         self.config = config
 
-    def send_to_file(self, interactions: list) -> None:
+    def send_to_file(self, interactions: list):
         with open(self.config.LOG_PATH, "w+") as f:
             f.write(json.dumps(interactions) + "\n")
 
-    def send_to_console(self, interactions: list) -> None:
+    def send_to_console(self, interactions: list):
         print(json.dumps(interactions) + "\n")
 
-    def get_ingest_url(self) -> Optional[str]:
+    def get_ingest_url(self) -> str:
         if self.config.UPLOAD_URL == "":
+            # TODO Add error message with instruction
             raise Exception("Optic url could not be found. Please run optic with api exec <command>")
         return self.config.UPLOAD_URL + "ecs"
 
-    def send_to_local_cli(self, interactions):
+    def send_to_local_cli(self, interactions) -> int:
         ingest_url = self.get_ingest_url()
-        print(interactions)
-        r = requests.post(ingest_url, json=interactions,)
+        r = requests.post(ingest_url, json=interactions)
         return r.status_code
 
     def send_interactions(self, interactions: list):

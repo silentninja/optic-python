@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.utils.deprecation import MiddlewareMixin
 
-from optic_django_middleware.apps import OpticDjangoAppConfig
+from .apps import OpticDjangoAppConfig
 
 
 class OpticMiddleware(MiddlewareMixin):
