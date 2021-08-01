@@ -6,6 +6,7 @@ authors = ["Mukesh <mmukesh95@hotmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7 || ^3.8 || ^3.9"
+requests = "^2.26.0"
 
 
 
