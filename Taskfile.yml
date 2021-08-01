@@ -1,0 +1,15 @@
+version: "3"
+
+tasks:
+  #
+  # sdk
+  #
+
+  sdk:test:
+    dir: sdk
+    cmds:
+      - api exec "tox"
+
+  test-all:
+    cmds:
+      - task: sdk:test
