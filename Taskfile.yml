@@ -6,7 +6,7 @@ tasks:
   #
 
   sdk:test:
-    dir: sdk/tests
+    dir: sdk
     cmds:
       - api exec "tox"
 
