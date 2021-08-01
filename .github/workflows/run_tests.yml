@@ -34,5 +34,5 @@ jobs:
         run: |
           pip install tox tox-gh-actions
       - name: Install Optic
-        run: yarn global install @useoptic/cli
+        run: yarn global add @useoptic/cli
       - run: task test-all
