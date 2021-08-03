@@ -8,7 +8,7 @@ import requests
 @dataclass
 class OpticConfig:
     framework: str
-    ENABLED: bool = os.environ.get("OPTIC_ENABLED", True)
+    ENABLE: bool = os.environ.get("OPTIC_ENABLE", True)
     DEV: bool = os.environ.get("OPTIC_DEV", False)
     LOCAL: bool = os.environ.get("OPTIC_LOCAL", True)
     CONSOLE: bool = os.environ.get("OPTIC_CONSOLE", False)
@@ -43,7 +43,7 @@ class Optic:
         return r.status_code
 
     def send_interactions(self, interactions: list):
-        if not self.config.ENABLED:
+        if not self.config.ENABLE:
             return
         if self.config.CONSOLE:
             self.send_to_console(interactions)

@@ -4,36 +4,35 @@ from dataclasses import dataclass, fields
 
 from django.apps import AppConfig
 from django.conf import settings
-
 from optic import OpticConfig
 
 
 @dataclass
 class OpticDjangoConfig(OpticConfig):
-    ENABLE = True
     INTERACTION_MANAGER = "optic_django_middleware.manager.BasicOpticManager"
 
 
 class OpticDjangoAppConfig(AppConfig):
-    name = 'optic_django_middleware'
-    verbose_name = 'Optic Middleware'
+    name = "optic_django_middleware"
+    verbose_name = "Optic Middleware"
 
-    setting_name = 'OPTIC'
+    setting_name = "OPTIC"
 
     default_settings = OpticDjangoConfig(framework="Django")
 
     @classmethod
     def get_setting(cls, setting_name):
-        return (getattr(settings, cls.setting_name, {})
-                .get(setting_name, getattr(cls.default_settings, setting_name)))
+        return getattr(settings, cls.setting_name, {}).get(
+            setting_name, getattr(cls.default_settings, setting_name)
+        )
 
     @classmethod
     def enabled(cls) -> bool:
-        return cls.get_setting('ENABLE')
+        return cls.get_setting("ENABLE")
 
     @classmethod
     def log_path(cls) -> str:
-        return cls.get_setting('LOG_PATH')
+        return cls.get_setting("LOG_PATH")
 
     def ready(self):
         if self.enabled():
@@ -41,7 +40,9 @@ class OpticDjangoAppConfig(AppConfig):
 
     @classmethod
     def get_manager(cls):
-        module_name, class_name = OpticDjangoAppConfig.get_setting("INTERACTION_MANAGER").rsplit(".", 1)
+        module_name, class_name = OpticDjangoAppConfig.get_setting(
+            "INTERACTION_MANAGER"
+        ).rsplit(".", 1)
         InteractionManager = getattr(importlib.import_module(module_name), class_name)
         return InteractionManager
 
