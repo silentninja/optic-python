@@ -8,6 +8,7 @@ import requests
 @dataclass
 class OpticConfig:
     framework: str
+    ENABLED: bool = os.environ.get("OPTIC_ENABLED", True)
     DEV: bool = os.environ.get("OPTIC_DEV", False)
     LOCAL: bool = os.environ.get("OPTIC_LOCAL", True)
     CONSOLE: bool = os.environ.get("OPTIC_CONSOLE", False)
@@ -31,7 +32,9 @@ class Optic:
     def get_ingest_url(self) -> str:
         if self.config.UPLOAD_URL == "":
             # TODO Add error message with instruction
-            raise Exception("Optic url could not be found. Please run optic with api exec <command>")
+            raise Exception(
+                "Optic url could not be found. Please run optic with api exec <command>"
+            )
         return self.config.UPLOAD_URL + "ecs"
 
     def send_to_local_cli(self, interactions) -> int:
@@ -40,6 +43,8 @@ class Optic:
         return r.status_code
 
     def send_interactions(self, interactions: list):
+        if not self.config.ENABLED:
+            return
         if self.config.CONSOLE:
             self.send_to_console(interactions)
         if self.config.LOG:
