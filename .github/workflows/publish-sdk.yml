@@ -24,6 +24,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install Task
         run: curl -sL https://taskfile.dev/install.sh | sudo bash -s -- -b /usr/local/bin/
+      - name: Install dependencies
+        run: |
+          pip install poetry
       - name: Publish to PyPi
         if: ${{ github.event_name == 'push' }}
         run: task sdk:publish
