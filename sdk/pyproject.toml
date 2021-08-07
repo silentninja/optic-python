@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "optic"
-version = "0.1.3"
+name = "optic-sdk"
+version = "0.1.0"
 description = "Python SDK for Optic"
 authors = ["Mukesh <mmukesh95@hotmail.com>"]
 license = "MIT"
@@ -19,7 +19,9 @@ classifiers = [
 include = [
     "LICENSE",
 ]
-
+packages = [
+    { include = "optic" },
+]
 [tool.poetry.dependencies]
 python = "^3.7 || ^3.8 || ^3.9"
 requests = "^2.26.0"
