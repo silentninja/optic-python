@@ -6,10 +6,65 @@ tasks:
   #
 
   sdk:test:
-    dir: sdk
+    dir: sdk/tests
     cmds:
       - api exec "tox"
 
+  sdk:publish:
+    desc: Publish optic-python-sdk
+    dir: sdk
+    cmds:
+      - task: poetry:publish
+        vars:
+          PROJECT_DIR: sdk
+  sdk:publish:test:
+    desc: Publish optic-python-sdk to test pypi
+    dir: sdk
+    cmds:
+      - task: poetry:publish:test
+        vars:
+          PROJECT_DIR: sdk
   test-all:
     cmds:
       - task: sdk:test
+
+  poetry:publish:
+    dir: "{{.PROJECT_DIR}}"
+    vars:
+      DRY_RUN: '{{default "true" .DRY_RUN}}'
+    env:
+      POETRY_PYPI_TOKEN_PYPI: "{{.POETRY_PYPI_TOKEN_PYPI}}"
+    cmds:
+      - poetry publish --build {{if (eq .DRY_RUN "true")}}--dry-run {{end}}
+    preconditions:
+      - sh: "[[ -n $POETRY_PYPI_TOKEN_PYPI ]]"
+        msg: "You must set POETRY_PYPI_TOKEN_PYPI"
+  poetry:publish:test:
+    dir: "{{.PROJECT_DIR}}"
+    vars:
+      DRY_RUN: "{{default `true` .DRY_RUN}}"
+    env:
+      POETRY_PYPI_TOKEN_PYPI: "{{.POETRY_PYPI_TOKEN_PYPI}}"
+      POETRY_HTTP_BASIC_TESTPYPI_USERNAME: "__token__"
+      POETRY_HTTP_BASIC_TESTPYPI_PASSWORD: "<token>"
+    cmds:
+      - poetry config repositories.testpypi https://test.pypi.org/legacy/
+      - poetry config pypi-token.testpypi "$POETRY_PYPI_TOKEN_PYPI"
+      - poetry publish --build {{if (eq .DRY_RUN "true")}}--dry-run {{end}}--repository=testpypi
+    preconditions:
+      - sh: "[[ -n $POETRY_PYPI_TOKEN_PYPI ]]"
+        msg: "You must set POETRY_PYPI_TOKEN_PYPI"
+
+
+  git:tag-and-push:
+    - git switch main
+    - git pull --rebase
+    - git tag {{.CLI_ARGS}}
+    - git push origin main --tags
+
+  publish-all:
+    cmds:
+      - task: sdk:publish
+  test-publish-all:
+    cmds:
+      - task: sdk:publish:test

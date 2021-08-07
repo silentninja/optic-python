@@ -1,9 +1,27 @@
 [tool.poetry]
-name = "optic"
+name = "optic-sdk"
 version = "0.1.0"
 description = "Python SDK for Optic"
 authors = ["Mukesh <mmukesh95@hotmail.com>"]
-
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/silentninja/optic-python"
+repository = "https://github.com/silentninja/optic-python/sdk"
+keywords = ["swagger", "optic", "sdk", "api"]
+classifiers = [
+    "Environment :: Console",
+    "Framework :: Flake8",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+]
+include = [
+    "LICENSE",
+]
+packages = [
+    { include = "optic" },
+]
 [tool.poetry.dependencies]
 python = "^3.7 || ^3.8 || ^3.9"
 requests = "^2.26.0"
