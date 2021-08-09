@@ -1,14 +1,25 @@
 [tool.poetry]
-name = "optic_django_unittest"
+name = "optic-django-unittest-plugin"
 version = "0.1.0"
 description = ""
 authors = ["Mukesh <mmukesh95@hotmail.com>"]
 
+
+packages = [
+    { include = "optic_django_unittest" },
+]
+[[tool.poetry.source]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+secondary = true
+
 [tool.poetry.dependencies]
 python = "~3.7 || ^3.8 || ^3.9"
-optic_django_middleware = { path = "../optic_django_middleware", develop = true }
-
+Django = "^3.2.4"
+kubi-ecs-logger = "^0.1.0"
+optic_django_middleware = "^0.1.0"
 [tool.poetry.dev-dependencies]
+optic_django_middleware = { path = "../optic_django_middleware", develop = true }
 tox = "^3.23.1"
 codecov = "^2.1.11"
 freezegun = "^1.1.0"

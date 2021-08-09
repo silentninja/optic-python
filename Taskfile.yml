@@ -9,6 +9,14 @@ tasks:
     dir: sdk/tests
     cmds:
       - api exec "tox"
+  django:middleware:test:
+    dir: frameworks/django/optic_django_middleware/tests
+    cmds:
+      - api exec "tox"
+  django:unittest:test:
+    dir: frameworks/django/optic_django_unittest
+    cmds:
+      - api exec "tox"
 
   sdk:publish:
     desc: Publish optic-python-sdk
@@ -27,6 +35,8 @@ tasks:
   test-all:
     cmds:
       - task: sdk:test
+      - task: django:middleware:test
+      - task: django:unittest:test
 
   poetry:publish:
     dir: "{{.PROJECT_DIR}}"

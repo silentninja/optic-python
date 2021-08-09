@@ -1,17 +1,27 @@
 [tool.poetry]
-name = "optic_django_middleware"
+name = "optic-django-middleware"
 version = "0.1.0"
 description = ""
 authors = ["Mukesh <mmukesh95@hotmail.com>"]
 
+
+packages = [
+    { include = "optic_django_middleware" },
+]
+[[tool.poetry.source]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+secondary = true
+
 [tool.poetry.dependencies]
 python = "^3.7 || ^3.8 || ^3.9"
-optic = { path = "../../../sdk", develop = true }
+optic-sdk = "^0.1.0"
 Django = "^3.2.4"
 kubi-ecs-logger = "^0.1.0"
 
 
 [tool.poetry.dev-dependencies]
+optic-sdk = { path = "../../../sdk", develop = true }
 tox = "^3.23.1"
 codecov = "^2.1.11"
 freezegun = "^1.1.0"
