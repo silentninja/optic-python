@@ -12,11 +12,11 @@ tasks:
   django:middleware:test:
     dir: frameworks/django/optic_django_middleware/tests
     cmds:
-      - api exec "tox"
+      - tox
   django:unittest:test:
     dir: frameworks/django/optic_django_unittest
     cmds:
-      - api exec "tox"
+      - tox
 
   sdk:publish:
     desc: Publish optic-python-sdk
