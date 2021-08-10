@@ -2,6 +2,8 @@ name: Python package
 
 on:
   create:
+    branches: [ 'develop' ]
+  push:
     branches: [ 'main' ]
 
 
@@ -27,6 +29,12 @@ jobs:
         run: |
           pip install poetry
       - name: Publish to PyPi
+        if: ${{ github.event_name == 'push' }}
         run: task django:middleware:publish
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+      - name: Publish to testPyPi
+        if: ${{ github.event_name == 'create' }}
+        run: task django:middleware:publish:test
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.TEST_PYPI_TOKEN }}
