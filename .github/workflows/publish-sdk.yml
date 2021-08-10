@@ -12,6 +12,7 @@ env:
 
 jobs:
   publish:
+    if: ${{ startsWith(github.ref, 'refs/tags/sdk/v') }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
