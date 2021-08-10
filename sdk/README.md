@@ -42,9 +42,9 @@ Environment variables can also be used to set the values.
             """
             config = OpticConfig(framework="<insert name>", CONSOLE=True)
             optic = Optic(config)
-            optic.send_to_local_cli(ecs_object) //send to optic cli
-            optic.send_to_file(ecs_object) //save to file
-            optic.send_to_console(ecs_object) //send to stdout
+            optic.send_to_local_cli(ecs_object) #send to optic cli
+            optic.send_to_file(ecs_object) #save to file
+            optic.send_to_console(ecs_object) #send to stdout
 
 ## License
 This software is licensed under the [MIT license](../LICENSE).
