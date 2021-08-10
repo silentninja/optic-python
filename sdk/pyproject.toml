@@ -9,12 +9,18 @@ homepage = "https://github.com/silentninja/optic-python"
 repository = "https://github.com/silentninja/optic-python/sdk"
 keywords = ["swagger", "optic", "sdk", "api"]
 classifiers = [
-    "Environment :: Console",
-    "Framework :: Flake8",
-    "Operating System :: OS Independent",
+    'Development Status :: 3 - Alpha',
+    'Environment :: Web Environment',
+    'Framework :: Django',
+    'Framework :: Django :: 3.7',
+    'Framework :: Django :: 3.8',
+    'Framework :: Django :: 3.9',
+    'Intended Audience :: Developers',
+    'Operating System :: OS Independent',
     "Topic :: Software Development :: Documentation",
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Quality Assurance",
+    'Topic :: Internet :: WWW/HTTP',
+    'License :: OSI Approved :: MIT License'
 ]
 include = [
     "LICENSE",

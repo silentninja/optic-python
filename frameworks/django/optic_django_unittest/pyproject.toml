@@ -3,7 +3,29 @@ name = "optic-django-unittest-plugin"
 version = "0.1.0"
 description = ""
 authors = ["Mukesh <mmukesh95@hotmail.com>"]
-
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/silentninja/optic-python"
+repository = "https://github.com/silentninja/optic-python/frameworks/django/optic_django_unittest"
+keywords = ["swagger", "optic", "sdk", "api", "django", "middleware", "unittest", "plugin", "testing"]
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Environment :: Web Environment',
+    'Framework :: Django',
+    'Framework :: Django :: 3.7',
+    'Framework :: Django :: 3.8',
+    'Framework :: Django :: 3.9',
+    'Intended Audience :: Developers',
+    'Operating System :: OS Independent',
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Testing",
+    'Topic :: Internet :: WWW/HTTP',
+    'License :: OSI Approved :: MIT License'
+]
+include = [
+    "LICENSE",
+]
 
 packages = [
     { include = "optic_django_unittest" },
