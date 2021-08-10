@@ -4,7 +4,7 @@ from io import StringIO
 from os.path import exists
 from unittest import TestLoader, TextTestRunner
 
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.test.runner import DiscoverRunner
 from optic_django_unittest.manager import HttpInteractionManager
 
@@ -33,6 +33,7 @@ class TestRunnerTest(TestCase):
             test_class.__module__, test_class.__qualname__, method_name
         )
 
+    @tag("unittest")
     def test_log_sent_on_teardown(self):
         class Test(TestCase):
             def test_foo(self):
@@ -55,6 +56,7 @@ class TestRunnerTest(TestCase):
             self.assertEqual(len(log), 5)
             self.assertEqual(log[0]["url"]["path"], "/url-1")
 
+    @tag("unittest")
     def test_success_only_log_sent_on_teardown(self):
         class Test(TestCase):
             def test_foo(self):
@@ -78,6 +80,7 @@ class TestRunnerTest(TestCase):
             self.assertEqual(len(log), 1)
             self.assertEqual(log[0]["url"]["path"], "/url-2")
 
+    @tag("unittest")
     def test_custom_setup_teardown(self):
         class Test(TestCase):
             def setUp(self):

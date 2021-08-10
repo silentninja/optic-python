@@ -9,6 +9,14 @@ tasks:
     dir: sdk/tests
     cmds:
       - api exec "tox"
+  django:middleware:test:
+    dir: frameworks/django/optic_django_middleware/tests
+    cmds:
+      - tox
+  django:unittest:test:
+    dir: frameworks/django/optic_django_unittest
+    cmds:
+      - tox
 
   sdk:publish:
     desc: Publish optic-python-sdk
@@ -24,9 +32,39 @@ tasks:
       - task: poetry:publish:test
         vars:
           PROJECT_DIR: sdk
+  django:middleware:publish:
+    desc: Publish optic-python-django-middleware
+    dir: frameworks/django/optic_django_middleware
+    cmds:
+      - task: poetry:publish
+        vars:
+          PROJECT_DIR: frameworks/django/optic_django_middleware
+  django:middleware:publish:test:
+    desc: Publish optic-python-django-middleware to test pypi
+    dir: frameworks/django/optic_django_middleware
+    cmds:
+      - task: poetry:publish:test
+        vars:
+          PROJECT_DIR: frameworks/django/optic_django_middleware
+  django:unittest-plugin:publish:
+    desc: Publish optic-python-django-unittest-plugin
+    dir: frameworks/django/optic_django_unittest
+    cmds:
+      - task: poetry:publish
+        vars:
+          PROJECT_DIR: frameworks/django/optic_django_unittest
+  django:unittest-plugin:publish:test:
+    desc: Publish optic-python-django-middleware to test pypi
+    dir: frameworks/django/optic_django_unittest
+    cmds:
+      - task: poetry:publish:test
+        vars:
+          PROJECT_DIR: frameworks/django/optic_django_unittest
   test-all:
     cmds:
       - task: sdk:test
+      - task: django:middleware:test
+      - task: django:unittest:test
 
   poetry:publish:
     dir: "{{.PROJECT_DIR}}"
