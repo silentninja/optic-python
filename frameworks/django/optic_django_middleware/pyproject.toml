@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "optic-django-middleware"
 version = "0.1.0"
-description = ""
+description = "Django Middleware for optic"
 authors = ["Mukesh <mmukesh95@hotmail.com>"]
 
 
