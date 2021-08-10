@@ -12,9 +12,7 @@ classifiers = [
     'Development Status :: 3 - Alpha',
     'Environment :: Web Environment',
     'Framework :: Django',
-    'Framework :: Django :: 3.7',
-    'Framework :: Django :: 3.8',
-    'Framework :: Django :: 3.9',
+    'Framework :: Django :: 3.2',
     'Intended Audience :: Developers',
     'Operating System :: OS Independent',
     "Topic :: Software Development :: Documentation",
@@ -40,13 +38,18 @@ python = "~3.7 || ^3.8 || ^3.9"
 Django = "^3.2.4"
 kubi-ecs-logger = "^0.1.0"
 optic-django-middleware = "^0.1.0"
+freezegun = { version = "^1.1.0", optional = true }
 [tool.poetry.dev-dependencies]
 optic-django-middleware = { path = "../optic_django_middleware", develop = true }
 tox = "^3.23.1"
 codecov = "^2.1.11"
-freezegun = "^1.1.0"
 flake8 = "^3.9.2"
 pre-commit = "^2.13.0"
+
+[tool.poetry.extras]
+test = ["freezegun"]
+
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

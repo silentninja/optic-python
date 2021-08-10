@@ -10,7 +10,7 @@ tasks:
     cmds:
       - api exec "tox"
   django:middleware:test:
-    dir: frameworks/django/optic_django_middleware/tests
+    dir: frameworks/django/optic_django_middleware
     cmds:
       - tox
   django:unittest:test:
@@ -69,29 +69,24 @@ tasks:
   poetry:publish:
     dir: "{{.PROJECT_DIR}}"
     vars:
-      DRY_RUN: '{{default "true" .DRY_RUN}}'
+      DRY_RUN: '{{default "false" .DRY_RUN}}'
     env:
-      POETRY_PYPI_TOKEN_PYPI: "{{.POETRY_PYPI_TOKEN_PYPI}}"
+      POETRY_PYPI_TOKEN_PYPI: "pypi-AgEIcHlwaS5vcmcCJDYyOTVkYWRmLWY3OTUtNDkyYi1hYWEwLTYyYTNiZGRjMGJiNwACJXsicGVybWlzc2lvbnMiOiAidXNlciIsICJ2ZXJzaW9uIjogMX0AAAYg1AjE2Q9SBdN54iUGcD5Y1u0jLpzZLD-3n_5UdszTN8M"
     cmds:
       - poetry publish --build {{if (eq .DRY_RUN "true")}}--dry-run {{end}}
-    preconditions:
-      - sh: "[[ -n $POETRY_PYPI_TOKEN_PYPI ]]"
-        msg: "You must set POETRY_PYPI_TOKEN_PYPI"
+
   poetry:publish:test:
     dir: "{{.PROJECT_DIR}}"
     vars:
-      DRY_RUN: "{{default `true` .DRY_RUN}}"
+      DRY_RUN: "{{default `false` .DRY_RUN}}"
     env:
-      POETRY_PYPI_TOKEN_PYPI: "{{.POETRY_PYPI_TOKEN_PYPI}}"
+      POETRY_PYPI_TOKEN_PYPI: "pypi-AgENdGVzdC5weXBpLm9yZwIkNjM2MDg1NDEtZjg2ZS00MjcwLWIxMjItOTFkZGZmZWVkZmNhAAIleyJwZXJtaXNzaW9ucyI6ICJ1c2VyIiwgInZlcnNpb24iOiAxfQAABiBEhWvpGWqWxc1MDQAFTRd8zDjdhr9pAuGasb6YB_A3Fw"
       POETRY_HTTP_BASIC_TESTPYPI_USERNAME: "__token__"
       POETRY_HTTP_BASIC_TESTPYPI_PASSWORD: "<token>"
     cmds:
       - poetry config repositories.testpypi https://test.pypi.org/legacy/
       - poetry config pypi-token.testpypi "$POETRY_PYPI_TOKEN_PYPI"
       - poetry publish --build {{if (eq .DRY_RUN "true")}}--dry-run {{end}}--repository=testpypi
-    preconditions:
-      - sh: "[[ -n $POETRY_PYPI_TOKEN_PYPI ]]"
-        msg: "You must set POETRY_PYPI_TOKEN_PYPI"
 
 
   git:tag-and-push:
