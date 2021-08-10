@@ -238,7 +238,7 @@ python-versions = "*"
 [[package]]
 name = "optic-django-middleware"
 version = "0.1.0"
-description = ""
+description = "Django Middleware for optic"
 category = "main"
 optional = false
 python-versions = "^3.7 || ^3.8 || ^3.9"
@@ -475,7 +475,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.7.0"
+version = "20.7.1"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
@@ -508,7 +508,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.7 || ^3.8 || ^3.9"
-content-hash = "9a8322e62c1ed180d47051b0f24e8c2853aaa60136c7081c9cdf14b49a75b8cb"
+content-hash = "33a5aae2439447134e4af4e96111143b9e47854d4bdfd478636d218dd01fe628"
 
 [metadata.files]
 asgiref = [
@@ -746,8 +746,8 @@ urllib3 = [
     {file = "urllib3-1.26.6.tar.gz", hash = "sha256:f57b4c16c62fa2760b7e3d97c35b255512fb6b59a259730f36ba32ce9f8e342f"},
 ]
 virtualenv = [
-    { file = "virtualenv-20.7.0-py2.py3-none-any.whl", hash = "sha256:fdfdaaf0979ac03ae7f76d5224a05b58165f3c804f8aa633f3dd6f22fbd435d5" },
-    { file = "virtualenv-20.7.0.tar.gz", hash = "sha256:97066a978431ec096d163e72771df5357c5c898ffdd587048f45e0aecc228094" },
+    { file = "virtualenv-20.7.1-py2.py3-none-any.whl", hash = "sha256:73863dc3be1efe6ee638e77495c0c195a6384ae7b15c561f3ceb2698ae7267c1" },
+    { file = "virtualenv-20.7.1.tar.gz", hash = "sha256:57bcb59c5898818bd555b1e0cfcf668bd6204bc2b53ad0e70a52413bd790f9e4" },
 ]
 zipp = [
     {file = "zipp-3.5.0-py3-none-any.whl", hash = "sha256:957cfda87797e389580cb8b9e3870841ca991e2125350677b2ca83a0e99390a3"},
