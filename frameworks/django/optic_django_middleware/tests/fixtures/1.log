@@ -24,8 +24,8 @@
     },
     "request": {
       "body": {
-        "content": "",
-        "bytes": 0
+        "content": "{}",
+        "bytes": 2
       },
       "method": "GET",
       "headers": {
