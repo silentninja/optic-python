@@ -14,7 +14,7 @@ class OpticConfig:
     CONSOLE: bool = os.environ.get("OPTIC_CONSOLE", False)
     LOG: bool = os.environ.get("OPTIC_LOG", False)
     LOG_PATH: str = os.environ.get("OPTIC_LOG_PATH", "./optic.log")
-    UPLOAD_URL: str = os.environ.get("OPTIC_LOGGING_URL", "http://localhost:4005/")
+    UPLOAD_URL: str = os.environ.get("OPTIC_LOGGING_URL", "")
 
 
 class Optic:

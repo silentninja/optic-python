@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
-from test_app.views import form_view, json_view, view1, view2
+from unittest_test_app.views import form_view, json_view, view1, view2
 
 urlpatterns = [
     url(r"^url-1$", view1, name="view-1"),
