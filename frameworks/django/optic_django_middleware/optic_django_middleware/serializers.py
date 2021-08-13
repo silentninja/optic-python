@@ -1,4 +1,3 @@
-import json
 from typing import Dict
 from urllib.parse import urlparse
 
@@ -24,19 +23,8 @@ class OpticEcsLogger(Logger):
             "user_agent",
             None,
         )
-        serialized_request_body: str
-        if request.method == "GET":
-            serialized_request_body = json.dumps(dict(request.GET))
-        else:
-            # For any other methods like POST, PUT, PATH
-            if request.headers.get("content-type") == "application/json":
-                serialized_request_body = request_body.decode("utf-8")
-            else:
-                serialized_request_body = json.dumps(dict(request.POST))
-
         if not user_agent_string and "HTTP_USER_AGENT" in request.META:
             user_agent_string = request.META["HTTP_USER_AGENT"]
-
         log = (
             self.url(
                 full=parsed_url.geturl(),
@@ -51,9 +39,9 @@ class OpticEcsLogger(Logger):
                 bytes=len(response.content),
             )
             .http_request(
-                body_content=serialized_request_body,
+                body_content=request_body,
                 method=request.method,
-                bytes=len(serialized_request_body),
+                bytes=len(request_body),
             )
             .user_agent(original=user_agent_string)
         )
@@ -68,7 +56,7 @@ class OpticEcsLogger(Logger):
                     "content": obj["httpresponse"]["body_content"],
                     "bytes": obj["httpresponse"]["bytes"],
                 },
-                "status_code": int(obj["httpresponse"]["status_code"]),
+                "status_code": obj["httpresponse"]["status_code"],
                 "headers": response_headers,
             }
         if "httprequest" in obj:
