@@ -4,10 +4,9 @@ from optic_django_unittest.container import (
     TestCaseInteractionContainer,
     TestResultInteractionContainer,
 )
+from unittest_test_app.views import view1, view2
 
 from optic_django_middleware.serializers import OpticEcsLogger
-
-from .views import view1, view2
 
 
 class MockRequest(object):

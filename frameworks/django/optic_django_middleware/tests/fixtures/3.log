@@ -1,0 +1,41 @@
+[
+  {
+    "@timestamp": "2021-01-01T00:00:00",
+    "url": {
+      "full": "http://testserver/json-url-3",
+      "path": "/json-url-3",
+      "domain": "testserver",
+      "query": "",
+      "kind": "url"
+    },
+    "useragent": {
+      "original": "DjangoTestServer",
+      "kind": "useragent"
+    },
+    "http": {
+      "response": {
+        "body": {
+          "content": "{\"foo\": \"bar\"}",
+          "bytes": 14
+        },
+        "status_code": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "request": {
+        "body": {
+          "content": "{\"name\": \"Boo\"}",
+          "bytes": 15
+        },
+        "method": "PUT",
+        "headers": {
+          "Cookie": "",
+          "User-Agent": "DjangoTestServer",
+          "Content-Length": "15",
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  }
+]

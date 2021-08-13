@@ -10,37 +10,36 @@ DEBUG = True
 USE_TZ = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+++tu-okmph8o##2j4_cow30#j1*qdfvt0pj-+qsfc+i5_b0zx'
+SECRET_KEY = "django-insecure-+++tu-okmph8o##2j4_cow30#j1*qdfvt0pj-+qsfc+i5_b0zx"
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": ":memory:",
     }
 }
 
-tempdir = mkdtemp('optic_tests')
+tempdir = mkdtemp("optic_tests")
 
 OPTIC = {
-    'ENABLE': True,
-    'LOG_PATH': os.path.join(tempdir, 'optic.log'),
-    'LOG': True,
-    'CONSOLE': False,
-    'LOCAL': False,
-    'INTERACTION_MANAGER': "optic_django_unittest.manager.HttpInteractionManager"
-
+    "ENABLE": True,
+    "LOG_PATH": os.path.join(tempdir, "optic.log"),
+    "LOG": True,
+    "CONSOLE": False,
+    "LOCAL": False,
+    "INTERACTION_MANAGER": "optic_django_unittest.manager.HttpInteractionManager",
 }
 
-ROOT_URLCONF = 'tests.urls'
+ROOT_URLCONF = "urls"
 
 INSTALLED_APPS = [
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sites',
-    'django',
-    'optic_django_middleware',
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sites",
+    "django",
+    "optic_django_middleware",
 ]
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 SITE_ID = 1
 
 if django.VERSION >= (1, 10):
