@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "optic-django-unittest-plugin"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 authors = ["Mukesh <mmukesh95@hotmail.com>"]
 license = "MIT"
