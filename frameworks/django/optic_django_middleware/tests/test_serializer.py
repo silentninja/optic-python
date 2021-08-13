@@ -3,7 +3,7 @@ from django.utils.datastructures import MultiValueDict
 from django.utils.http import urlencode
 from fixtures import get_fixture
 from freezegun import freeze_time
-from middleware_test_app.views import form_view, json_view, view1
+from test_app.views import form_view, json_view, view1
 
 from optic_django_middleware.serializers import OpticEcsLogger
 

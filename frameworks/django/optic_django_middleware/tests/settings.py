@@ -26,7 +26,7 @@ OPTIC = {
     "LOG_PATH": os.path.join(tempdir, "optic.log"),
     "LOG": True,
     "CONSOLE": False,
-    "LOCAL": False,
+    "LOCAL": True,
 }
 
 ROOT_URLCONF = "urls"
